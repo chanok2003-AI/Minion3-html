@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minion สีชมพู + ใบเมเปิลร่วงเพียบ!</title>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #f9e4f0, #fceef5);
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    /* ใบเมเปิลร่วง */
+    .leaves {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10; /* อยู่เหนือ Minion นิดนึง */
+    }
+
+    .leaf {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: transparent;
+      border-radius: 50% 0 50% 0;
+      opacity: 0.9;
+      transform-origin: center;
+      animation: fall linear infinite;
+    }
+
+    /* สีใบเมเปิลหลากหลายโทนแดง-ส้ม-เหลือง */
+    .leaf:nth-child(odd)  { background: #ff4500; } /* ส้มแดง */
+    .leaf:nth-child(3n)   { background: #ff8c00; } /* ส้ม */
+    .leaf:nth-child(4n)   { background: #ffd700; } /* เหลืองทอง */
+    .leaf:nth-child(5n)   { background: #c71585; } /* ชมพูเข้มให้เข้ากับ Minion */
+    .leaf:nth-child(6n)   { background: #ff6347; } /* ทอมาโต้แดง */
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(120vh) rotate(720deg); /* หมุน 2 รอบเต็ม */
+        opacity: 0;
+      }
+    }
+
+    /* ปรับความเร็ว/ความล่าช้า/ตำแหน่งเริ่มต้นแบบสุ่มสำหรับแต่ละใบ */
+    .leaf:nth-child(1)  { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+    .leaf:nth-child(2)  { left: 20%; animation-duration: 12s; animation-delay: 1s; }
+    .leaf:nth-child(3)  { left: 30%; animation-duration: 9s; animation-delay: 2.5s; }
+    .leaf:nth-child(4)  { left: 40%; animation-duration: 10s; animation-delay: 0.5s; }
+    .leaf:nth-child(5)  { left: 50%; animation-duration: 11s; animation-delay: 3s; }
+    .leaf:nth-child(6)  { left: 60%; animation-duration: 7s; animation-delay: 1.8s; }
+    .leaf:nth-child(7)  { left: 70%; animation-duration: 13s; animation-delay: 4s; }
+    .leaf:nth-child(8)  { left: 80%; animation-duration: 9s; animation-delay: 0.8s; }
+    .leaf:nth-child(9)  { left: 15%; animation-duration: 10s; animation-delay: 5s; }
+    .leaf:nth-child(10) { left: 25%; animation-duration: 8s; animation-delay: 2s; }
+    .leaf:nth-child(11) { left: 35%; animation-duration: 14s; animation-delay: 3.5s; }
+    .leaf:nth-child(12) { left: 45%; animation-duration: 11s; animation-delay: 1.2s; }
+    .leaf:nth-child(13) { left: 55%; animation-duration: 9s; animation-delay: 4.5s; }
+    .leaf:nth-child(14) { left: 65%; animation-duration: 12s; animation-delay: 0.3s; }
+    .leaf:nth-child(15) { left: 75%; animation-duration: 10s; animation-delay: 2.8s; }
+    .leaf:nth-child(16) { left: 85%; animation-duration: 8s; animation-delay: 1.5s; }
+    .leaf:nth-child(17) { left: 5%;  animation-duration: 13s; animation-delay: 6s; }
+    .leaf:nth-child(18) { left: 95%; animation-duration: 9s; animation-delay: 3.2s; }
+
+    /* Minion ตัวเดิม (ย่อให้สั้นลงนิด) */
+    .minion {
+      position: relative;
+      width: 220px;
+      height: 280px;
+      z-index: 5;
+    }
+
+    .head {
+      width: 180px;
+      height: 160px;
+      background: #ff9ecd;
+      border-radius: 50% 50% 40% 40%;
+      position: absolute;
+      top: 0;
+      left: 20px;
+      border: 4px solid #000;
+      box-sizing: border-box;
+      z-index: 2;
+    }
+
+    .hair {
+      width: 190px;
+      height: 50px;
+      background: #000;
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      border-radius: 50% 50% 0 0;
+      z-index: 3;
+    }
+
+    .eye {
+      width: 70px;
+      height: 70px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 50px;
+      border: 5px solid #000;
+      z-index: 4;
+      overflow: hidden;
+    }
+    .eye.left  { left: 25px; }
+    .eye.right { right: 25px; }
+
+    .pupil {
+      width: 32px;
+      height: 32px;
+      background: #000;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: inset -8px -8px 0 #ff69b4;
+      transition: transform 0.12s ease-out;
+    }
+
+    /* ส่วนอื่น ๆ ของ Minion (body, arm, leg, etc.) เหมือนเดิม */
+    .goggle-strap { width: 240px; height: 28px; background: #000; position: absolute; top: 80px; left: -10px; z-index: 1; }
+    .mouth { width: 80px; height: 40px; background: #000; border-radius: 0 0 50% 50%; position: absolute; top: 110px; left: 70px; z-index: 3; }
+    .smile { width: 100px; height: 60px; border-bottom: 12px solid #000; border-radius: 50%; position: absolute; top: 105px; left: 60px; z-index: 2; }
+    .body { width: 180px; height: 140px; background: #ff69b4; position: absolute; top: 140px; left: 20px; border: 4px solid #000; border-radius: 40% 40% 50% 50%; z-index: 1; }
+    .pocket { width: 80px; height: 80px; background: #c71585; border: 4px solid #000; border-radius: 50%; position: absolute; top: 170px; left: 70px; z-index: 2; }
+    .arm { width: 40px; height: 100px; background: #ff9ecd; border: 4px solid #000; position: absolute; top: 140px; z-index: 0; }
+    .arm.left  { left: -10px; border-radius: 50% 20% 20% 50%; }
+    .arm.right { right: -10px; border-radius: 20% 50% 50% 20%; }
+    .leg { width: 60px; height: 80px; background: #000; position: absolute; top: 260px; border-radius: 30px; }
+    .leg.left  { left: 40px; }
+    .leg.right { right: 40px; }
+    .shoe { width: 80px; height: 40px; background: #000; border-radius: 50% 50% 20% 20%; position: absolute; top: 320px; border: 4px solid #333; }
+    .shoe.left  { left: 30px; }
+    .shoe.right { right: 30px; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ใบเมเปิลร่วง 18 ใบ (เพิ่มได้ตามชอบ) -->
+  <div class="leaves">
+    <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+    <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+    <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+    <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+    <div class="leaf"></div><div class="leaf"></div>
+  </div>
+
+  <div class="minion">
+    <div class="hair"></div>
+    <div class="head">
+      <div class="eye left"><div class="pupil"></div></div>
+      <div class="eye right"><div class="pupil"></div></div>
+      <div class="goggle-strap"></div>
+      <div class="mouth"></div>
+      <div class="smile"></div>
+    </div>
+
+    <div class="body">
+      <div class="pocket"></div>
+    </div>
+
+    <div class="arm left"></div>
+    <div class="arm right"></div>
+
+    <div class="leg left"></div>
+    <div class="leg right"></div>
+
+    <div class="shoe left"></div>
+    <div class="shoe right"></div>
+  </div>
+
+  <script>
+    // ส่วนตามเมาส์เหมือนเดิม
+    const pupils = document.querySelectorAll('.pupil');
+    const eyes = document.querySelectorAll('.eye');
+    const maxMove = 18;
+
+    document.addEventListener('mousemove', (e) => {
+      pupils.forEach((pupil, index) => {
+        const eye = eyes[index];
+        const eyeRect = eye.getBoundingClientRect();
+        const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+        const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+        let dx = e.clientX - eyeCenterX;
+        let dy = e.clientY - eyeCenterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance > maxMove) {
+          dx *= maxMove / distance;
+          dy *= maxMove / distance;
+        }
+
+        pupil.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+    });
+  </script>
+
+</body>
+</html>
